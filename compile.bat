@@ -1,0 +1,1 @@
+pyinstaller --onefile --copy-metadata bokeh palette.py

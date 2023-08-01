@@ -19,3 +19,4 @@ build/palette/localpycs/pyimod03_ctypes.pyc
 build/palette/localpycs/pyimod04_pywin32.pyc
 build/palette/localpycs/struct.pyc
 dist/palette.exe
+dist/PalettePusher.exe
