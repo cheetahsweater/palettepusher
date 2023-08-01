@@ -4,6 +4,7 @@ from reportlab.platypus import Table, TableStyle
 import bokeh.colors
 import tkinter as tk
 
+#Establishing dimensions of rectangles and filename
 width = 113
 height = 100
 padding = 20
@@ -14,6 +15,7 @@ userpalette = []
 brightlist = []
 rgblist = []
 
+#Calculates brightness of colors given
 def calc():
     progresslabel.config(text="Calculating...")
     for usercolor in userpalette:
@@ -27,6 +29,7 @@ def calc():
         rgblist.append(rgb)
         brightlist.append(brightness)
 
+#Draws rectangles on PDF
 def rect(x, y, hex, rgb, fontcolor):
     output.setFillColorRGB(rgb[0]/255, rgb[1]/255, rgb[2]/255)
     output.roundRect(x, y, width, height, 10, fill=1)
@@ -39,6 +42,7 @@ def rect(x, y, hex, rgb, fontcolor):
     table.wrapOn(output, width, padding)
     table.drawOn(output, x, y + padding - 10)
 
+#Adds given color to list
 def addcolor():
      color = hexblank.get()
      hexblank.delete(0, 7)
@@ -48,6 +52,7 @@ def addcolor():
           colorlist += color + "\n"
      colorlistlabel.config(text=colorlist)
 
+#Exports PDF
 def exportpdf():
     calc()
     progresslabel.config(text="Exporting PDF...")
@@ -69,6 +74,7 @@ def exportpdf():
     output.save()
     progresslabel.config(text="Export complete!")
 
+#UI setup
 window = tk.Tk()
 titlecard = tk.Label(window, text="Palette Pusher",font=25)
 hexlabel = tk.Label(window, text='Type a hex code here, then press "Add color".')
