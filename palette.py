@@ -10,10 +10,11 @@ height = 100
 padding = 20
 margin = 20
 row_margin = 40
-output = canvas.Canvas("palette.pdf")
 userpalette = []
 brightlist = []
 rgblist = []
+palname = "palette"
+output = canvas.Canvas(f"{palname}.pdf", pagesize=letter)
 
 #Calculates brightness of colors given
 def calc():
@@ -52,10 +53,18 @@ def addcolor():
           colorlist += color + "\n"
      colorlistlabel.config(text=colorlist)
 
+#Names the palette
+def sendname():
+     global palname
+     palname = nameblank.get()
+     hexblank.delete(0, 50)
+     palnamelabel.config(text=f"Palette name: {palname}")
+
 #Exports PDF
 def exportpdf():
     calc()
     progresslabel.config(text="Exporting PDF...")
+    output._filename = f"{palname}.pdf"
     for row in range(5):
         for column in range(4):
             x = margin + column * (width + margin)
@@ -81,6 +90,10 @@ hexlabel = tk.Label(window, text='Type a hex code here, then press "Add color".'
 hexblank = tk.Entry(window)
 addbutton = tk.Button(window, command=addcolor, text="Add color")
 colorlistlabel = tk.Label(window, text='')
+namelabel = tk.Label(window, text='Name your palette...')
+nameblank = tk.Entry(window)
+namebutton = tk.Button(window, command=sendname, text="Send name")
+palnamelabel = tk.Label(window, text=f'Palette name: {palname}')
 exportlabel = tk.Label(window, text='Then click export to export your palette PDF!')
 exportbutton = tk.Button(window, command=exportpdf, text="Export")
 progresslabel = tk.Label(window, text='')
@@ -90,7 +103,11 @@ hexlabel.grid(row=1,columnspan=2,sticky="nesw", padx=10, pady=10)
 hexblank.grid(row=2, column=0,sticky="nesw", padx=10)
 addbutton.grid(row=2, column=1,sticky="nesw", padx=10)
 colorlistlabel.grid(row=3, columnspan=2,sticky="nesw",pady=50)
-exportlabel.grid(row=4, columnspan=2,sticky="nesw",pady=50)
-exportbutton.grid(row=5, column=1,sticky="nesw",padx=50, pady=10)
-progresslabel.grid(row=6, columnspan=2,sticky="nesw",padx=50, pady=10)
+namelabel.grid(row=4, columnspan=2,sticky="nesw",padx=10, pady=10)
+nameblank.grid(row=5, column=0,sticky="nesw",padx=10)
+namebutton.grid(row=5, column=1,sticky="nesw",padx=10)
+palnamelabel.grid(row=6, column=0,sticky="nesw",pady=10)
+exportlabel.grid(row=7, columnspan=2,sticky="nesw",pady=50)
+exportbutton.grid(row=8, column=1,sticky="nesw",padx=50, pady=10)
+progresslabel.grid(row=9, columnspan=2,sticky="nesw",padx=50, pady=10)
 window.mainloop()
